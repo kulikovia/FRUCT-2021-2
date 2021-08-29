@@ -1,0 +1,116 @@
+Request #1 returns the top 5 lines of summarized traffic across network devices over the both TN segments:
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema>
+PREFIX net: <http://purl.org/toco/>
+PREFIX geo: <http://www.w3.org/2003/01/geo/>
+PREFIX tnmo: <http://localhost/tnmo.owl>
+PREFIX TNSeg-1: <http://127.0.0.1/TNSeg-1/>
+PREFIX TNSeg-2: <http://127.0.0.1/TNSeg-2/>
+SELECT ?Device (SUM(?Traffic_value) as ?Traffic)
+WHERE
+{
+  ?a rdf:type "rdf:statement" .
+  ?a rdf:object ?Traffic_value .
+  ?a rdf:subject ?Users .
+  ?Event <http://127.0.0.1/tnmo/parameter_detailes> ?a .
+  ?Event <http://127.0.0.1/tnmo/device_parameter> ?Device .
+  ?Users <http://127.0.0.1/tnmo/sameAs> ?Same_Users .
+  }
+GROUP BY ?Device
+LIMIT 5
+
+RESPONSE:
+Device										Traffic
+<http://127.0.0.1/TNSeg-2/Device_812/>		519966526
+<http://127.0.0.1/TNSeg-2/Device_1295/>		527801713
+<http://127.0.0.1/TNSeg-2/Device_1006/>		519207569
+<http://127.0.0.1/TNSeg-2/Device_8/>		517085750
+<http://127.0.0.1/TNSeg-2/Device_1255/>		512740808
+
+Request #2 returns the top 5 lines of summarized traffic across users over both TN segments:
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema>
+PREFIX net: <http://purl.org/toco/>
+PREFIX geo: <http://www.w3.org/2003/01/geo/>
+PREFIX tnmo: <http://localhost/tnmo.owl>
+PREFIX TNSeg-1: <http://127.0.0.1/TNSeg-1/>
+PREFIX TNSeg-2: <http://127.0.0.1/TNSeg-2/>
+SELECT ?Users (SUM(?Traffic_value) as ?Traffic)
+WHERE
+{
+  ?a rdf:type "rdf:statement" .
+  ?a rdf:object ?Traffic_value .
+  ?a rdf:subject ?Users .
+  ?Event <http://127.0.0.1/tnmo/parameter_detailes> ?a .
+  ?Event <http://127.0.0.1/tnmo/device_parameter> ?Device .
+  ?Users <http://127.0.0.1/tnmo/sameAs> ?Same_Users .
+  }
+GROUP BY ?Users
+LIMIT 5
+
+RESPONSE:
+
+Users									Traffic
+<http://127.0.0.1/TNSeg-2/User_10/>		541996421
+<http://127.0.0.1/TNSeg-2/User_100/>	521316977
+<http://127.0.0.1/TNSeg-2/User_109/>	1029826558
+<http://127.0.0.1/TNSeg-2/User_1000/>	516152143
+<http://127.0.0.1/TNSeg-2/User_110/>	1513253207
+
+Request #3 returns the summarized traffic for selected user in Segment #1 of TN:
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema>
+PREFIX net: <http://purl.org/toco/>
+PREFIX geo: <http://www.w3.org/2003/01/geo/>
+PREFIX tnmo: <http://localhost/tnmo.owl>
+PREFIX TNSeg-1: <http://127.0.0.1/TNSeg-1/>
+PREFIX TNSeg-2: <http://127.0.0.1/TNSeg-2/>
+SELECT ?Users (SUM(?Traffic_value) as ?Traffic)
+WHERE
+{
+  ?a rdf:type "rdf:statement" .
+  ?a rdf:object ?Traffic_value .
+  ?a rdf:subject ?Users .
+  ?Users TNSeg-1:ID "56" .
+  ?Event <http://127.0.0.1/tnmo/parameter_detailes> ?a .
+  ?Event <http://127.0.0.1/tnmo/device_parameter> ?Device .
+  
+}
+GROUP BY ?Users
+
+RESPONSE:
+Users									Traffic
+<http://127.0.0.1/TNSeg-1/User_56/>		515136903
+
+
+
+Request #4 returns the summarized traffic for the selected device:
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema>
+PREFIX net: <http://purl.org/toco/>
+PREFIX geo: <http://www.w3.org/2003/01/geo/>
+PREFIX tnmo: <http://localhost/tnmo.owl>
+PREFIX TNSeg-1: <http://127.0.0.1/TNSeg-1/>
+PREFIX TNSeg-2: <http://127.0.0.1/TNSeg-2/>
+SELECT ?Device (SUM(?Traffic_value) as ?Traffic)
+WHERE
+{
+  ?a rdf:type "rdf:statement" .
+  ?a rdf:object ?Traffic_value .
+  ?a rdf:subject ?Users .
+  ?Event <http://127.0.0.1/tnmo/parameter_detailes> ?a .
+  ?Event <http://127.0.0.1/tnmo/device_parameter> ?Device .
+  ?Device net:hasMAC "MAC_Seg-1_6" .
+  
+}
+GROUP BY ?Device
+
+RESPONSE:
+Device									Traffic
+<http://127.0.0.1/TNSeg-1/Device_6/>	548343329
+
+
