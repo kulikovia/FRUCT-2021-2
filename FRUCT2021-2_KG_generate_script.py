@@ -20,14 +20,14 @@ d2 = datetime.strptime('3/3/21 23:59:59', '%m/%d/%y %H:%M:%S')
 #print(random_date(d1, d2))
 
 Max_Hubs = 3
-Max_Devices = 1500
-Max_Users = 1000
-Max_Actions_1 = 1000
-Max_Actions_2 = 1000
-Max_Actions_3 = 1000
-Max_Step_1 = 1500
-Max_Step_2 = 1500
-Max_Step_3 = 1500
+#Devices numbers: 1500 / 15000 / 45000
+Max_Devices = 45000
+#Users numbers: 1000 / 10000 / 30000
+Max_Users = 30000
+#Maximum event per RDF/XML file 1500 or 150000 according to Max_Devices value
+Max_Step_1 = 15000
+Max_Step_2 = 15000
+
 SPARQL_path = "C:/Blazegraph/1"
 Device_Users_Map_Seg1 = []
 Device_Users_Map_Seg2 = []
@@ -102,7 +102,7 @@ def createXML(filename):
             f = open(filename + "_monitoring_segment_1_" + str(FileNum) + "_.nq", "at")
             f.write(header)
             f.write("\n<!--Monitoring items definitions-->\n")
-            while k <= Max_Step_3:
+            while k <= Max_Step_2:
                 device_num = i
                 traffic_value = 0
                 for ih in range(24):
@@ -173,7 +173,7 @@ def createXML(filename):
                 f = open(filename + "_monitoring_segment_2_" + str(FileNum) + "_.nq", "at")
                 f.write(header)
                 f.write("\n<!--Monitoring items definitions-->\n")
-                while k <= Max_Step_3:
+                while k <= Max_Step_2:
                     device_num = i
                     traffic_value = 0
                     for ih in range(24):
