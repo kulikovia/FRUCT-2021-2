@@ -3,7 +3,7 @@
 2. FRUCT2021-2_KG_generate_script.py - Python script for the datasets creation
 3. SPARQL_Requests-Responce.txt - SPARQL Requests and Responses from the "Case study" section.
 
-For generating datasets are used for performance evaluationn the following variable must be setted in FRUCT2021-2_KG_generate_script.py:
+For generating datasets are used for performance evaluation, the following variables must be setted in FRUCT2021-2_KG_generate_script.py:
 #Devices numbers: Model No 1 - 1500 / Model No 2 - 15000 / Model No 3 - 45000
 Max_Devices = 45000
 #Users numbers: Model No 1 - 1000 / Model No 2 - 10000 / Model No 3 - 30000
